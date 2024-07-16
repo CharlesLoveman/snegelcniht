@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvexhx3fx43h4"]
+
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_am8s6"]
+[ext_resource type="Texture2D" uid="uid://heh4cyd6p7t0" path="res://Sprites/BulletProjectile.png" id="2_0jws8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6pojg"]
+radius = 16.0
+
+[node name="Bullet" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 28
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_am8s6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6pojg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0jws8")

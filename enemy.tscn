@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvpiuw0pb3ea4"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_jvdpf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sitcd"]
+radius = 16.0
+height = 64.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yirj3"]
+size = Vector2(32, 64)
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(200, -200)
+collision_layer = 4
+collision_mask = 19
+script = ExtResource("1_jvdpf")
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="OneShotTimer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sitcd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_yirj3")
+
+[node name="FloorDetector" type="Node2D" parent="."]
+position = Vector2(2.08165e-12, 48)

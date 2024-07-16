@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://dpxkyaq8xg4no"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_o7ccf"]
+[ext_resource type="Script" path="res://Scripts/InventoryCanvas.gd" id="2_1mvtf"]
+[ext_resource type="Script" path="res://Scripts/UI/WeaponDisplay.gd" id="2_4rhtr"]
+[ext_resource type="Script" path="res://Scripts/UI/InventoryDisplay.gd" id="2_vgve4"]
+[ext_resource type="Script" path="res://Scripts/InventoryPanel.gd" id="3_elxgu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7k665"]
+radius = 31.5
+height = 63.0
+
+[sub_resource type="Gradient" id="Gradient_tll7k"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7otws"]
+gradient = SubResource("Gradient_tll7k")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hb26l"]
+radius = 32.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(2.08165e-12, -100)
+collision_mask = 28
+floor_stop_on_slope = false
+script = ExtResource("1_o7ccf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_7k665")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_7otws")
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="FloorDetector" type="Node2D" parent="."]
+position = Vector2(2.08165e-12, 48)
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="OneShotTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_1mvtf")
+
+[node name="InventoryPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+z_index = 1
+offset_right = 3.0
+offset_bottom = 40.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+script = ExtResource("3_elxgu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/InventoryPanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="InventoryDisplay" type="GridContainer" parent="CanvasLayer/InventoryPanel/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_vgve4")
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/InventoryPanel/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+
+[node name="WeaponDisplay" type="VBoxContainer" parent="CanvasLayer/InventoryPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+script = ExtResource("2_4rhtr")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hb26l")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_timeout"]

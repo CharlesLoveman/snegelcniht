@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwfh3f4tfynnf"]
+
+[ext_resource type="PackedScene" uid="uid://dpxkyaq8xg4no" path="res://player.tscn" id="1_kxqjk"]
+[ext_resource type="Script" path="res://Scripts/Map.gd" id="2_7qjsx"]
+[ext_resource type="TileSet" uid="uid://c5xoumjydugx0" path="res://LineTileSet.tres" id="3_7cf2x"]
+[ext_resource type="Texture2D" uid="uid://b1rytjb06wukk" path="res://Sprites/Backgrounds/background.jpg" id="4_51hdi"]
+[ext_resource type="PackedScene" uid="uid://bvpiuw0pb3ea4" path="res://enemy.tscn" id="5_aec30"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_kxqjk")]
+
+[node name="Map" type="Node" parent="."]
+script = ExtResource("2_7qjsx")
+
+[node name="TileMap" type="TileMap" parent="Map"]
+tile_set = ExtResource("3_7cf2x")
+format = 2
+layer_0/tile_data = PackedInt32Array(-131081, 65536, 2, 65532, 65536, 0, 65533, 65536, 0, 65534, 65536, 0, 65535, 65536, 0, 0, 65536, 0, 1, 65536, 0, 2, 65536, 0, 3, 0, 0, 131068, 0, 1, 131069, 0, 1, 131070, 0, 1, 131071, 0, 1, 65536, 0, 1, 65537, 0, 1, 65538, 0, 1, 65539, 131072, 2, 131067, 0, 1, 131066, 0, 1, 131065, 0, 1, 65529, 65536, 0, 65530, 65536, 0, 65531, 65536, 0, 65528, 65536, 0, 65527, 65536, 1, 131063, 0, 2, 131064, 0, 1, -9, 65536, 2, -65545, 65536, 2, -196617, 196608, 2, -5, 65536, 2, -65541, 65536, 2, -131077, 65536, 2, -196613, 196608, 2, 4, 0, 1, 5, 0, 1, -65530, 0, 0, -131066, 65536, 1, -131065, 65536, 0, -131064, 65536, 0, -131063, 0, 0, -196599, 65536, 1, -196598, 131072, 1, -131062, 196608, 0, -65526, 131072, 2, -65527, 0, 1, -65528, 0, 1, -65529, 0, 1, 6, 131072, 2, -65532, 65536, 0, -65531, 65536, 0, -65533, 65536, 1)
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(5900, 5300)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("4_51hdi")
+
+[node name="Enemy" parent="." instance=ExtResource("5_aec30")]
