@@ -13,3 +13,4 @@ func _init(item: Item):
 	collisionShape.shape.size = Vector2(64, 64)
 	collision_layer = 0b100000
 	collision_mask = 0b10000
+	

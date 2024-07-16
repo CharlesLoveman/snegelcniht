@@ -2,7 +2,7 @@ class_name CreateMeleeAttack extends Attack
 
 var projectile: PackedScene
 var direction: Vector2
-var range: float
+var distance: float
 
 func _init(
 	projectile: PackedScene,
@@ -14,12 +14,12 @@ func _init(
 	spread: float,
 	direction: Vector2,
 	damage_type: String,
-	range: float
+	distance: float
 ):
 	super(swing_delay, reload_delay, attack_delay, 0.0, damage, crit_rate, spread, damage_type)
 	self.projectile = projectile
 	self.direction = direction
-	self.range = range
+	self.distance = distance
 
 func _execute(entity, state):
 	super(entity, state)
@@ -28,7 +28,7 @@ func _execute(entity, state):
 	obj.damage_type = damage_type
 	obj.damage = damage
 	obj.crit_rate = crit_rate
-	obj.position = range * direction.normalized().rotated(randf_range(-spread / 2.0, spread / 2.0))
+	obj.position = distance * direction.normalized().rotated(randf_range(-spread / 2.0, spread / 2.0))
 	obj.attacker = entity
 	obj.look_at(entity.position + obj.position + direction)
 	obj.setup()

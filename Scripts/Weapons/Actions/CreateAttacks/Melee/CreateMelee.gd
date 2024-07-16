@@ -1,7 +1,7 @@
 class_name CreateMelee extends CreateAttack
 
 var projectile: PackedScene
-var range: float
+var distance: float
 
 func _init(
 	proj: PackedScene,
@@ -12,17 +12,17 @@ func _init(
 	crit_rate: float,
 	spread: float,
 	damage_type: String,
-	range: float,
+	distance: float,
 	icon: Texture2D
 ):
 	super(swing_delay, reload_delay, attack_delay, speed, damage, crit_rate, spread, damage_type, icon)
 	projectile = proj
-	self.range = range
+	self.distance = distance
 
 func _apply(entity) -> Attack:
 	#var direction = Input.get_vector("Left", "Right", "Up", "Down")
 	var direction = entity.get_viewport().get_mouse_position() - entity.get_viewport().get_visible_rect().get_center()
-	return CreateMeleeAttack.new(projectile, swing_delay, reload_delay, attack_delay, damage, crit_rate, spread, direction, damage_type, range)
+	return CreateMeleeAttack.new(projectile, swing_delay, reload_delay, attack_delay, damage, crit_rate, spread, direction, damage_type, distance)
 
 func _clone() -> Action:
-	return CreateMelee.new(projectile, swing_delay, reload_delay, attack_delay, damage, crit_rate, spread, damage_type, range, icon)
+	return CreateMelee.new(projectile, swing_delay, reload_delay, attack_delay, damage, crit_rate, spread, damage_type, distance, icon)

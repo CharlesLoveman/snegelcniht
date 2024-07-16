@@ -12,6 +12,7 @@ signal hit_player
 
 var inventoryDisplay: InventoryDisplay
 var weaponDisplay: WeaponDisplay
+var hotbarDisplay: HotbarDisplay
 
 func _init():
 	super(
@@ -44,18 +45,38 @@ func _ready():
 			inventory.append(null)
 	inventory[0] = Gun.new()
 	inventory[1] = Sword.new()
-	inventoryDisplay = $CanvasLayer/InventoryPanel/VBoxContainer/InventoryDisplay
-	weaponDisplay = $CanvasLayer/InventoryPanel/VBoxContainer/WeaponDisplay
+	inventoryDisplay = $CanvasLayer/InventoryPanel/Inventory/InventoryDisplay
+	weaponDisplay = $CanvasLayer/InventoryPanel/Inventory/WeaponDisplay
+	hotbarDisplay = $CanvasLayer/InventoryPanel/Hotbar
 	inventoryDisplay.setup(inventory_columns, inventory)
 	inventoryDisplay.connect("update_inventory", update_inventory)
+	hotbarDisplay.setup(inventory_columns, inventory)
+	hotbarDisplay.connect("update_inventory", update_inventory)
 	weaponDisplay.setup(inventory)
+	
+func _physics_process(delta):
+	super(delta)
+	$Sprite2D.flip_h = get_local_mouse_position().x < 0
 
 func _unhandled_input(event):
 	input_source.add_input(event)
 
 func update_inventory(x: Item, id: int):
+	var prev_item = inventory[id]
 	inventory[id] = x
+	if prev_item && x:
+		var flag = true
+		for i in range(inventory.size()):
+			if !inventory[i]:
+				inventory[i] = prev_item
+				flag = false
+				break
+		if flag:
+			var pickup = Pickup.new(prev_item)
+			$"..".add_child(pickup)
+			pickup.position = global_position
 	inventoryDisplay.setup(inventory_columns, inventory)
+	hotbarDisplay.setup(inventory_columns, inventory)
 	weaponDisplay.setup(inventory)
 
 func pickup(x: Pickup):

@@ -1,7 +1,8 @@
 class_name Attacking extends State
 
-static func _on_physics_process(entity, delta, _state):
+static func _on_physics_process(entity, delta, state):
 	entity.velocity.y += entity.gravity * delta
+	entity.velocity.x += state["direction"].x * entity.air_accel * delta
 	entity.move_and_slide()
 
 static func _on_transition(entity: Entity, state: Dictionary):

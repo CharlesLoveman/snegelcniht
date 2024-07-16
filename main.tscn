@@ -27,3 +27,4 @@ motion_mirroring = Vector2(5900, 5300)
 texture = ExtResource("4_51hdi")
 
 [node name="Enemy" parent="." instance=ExtResource("5_aec30")]
+z_index = 1
